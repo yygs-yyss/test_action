@@ -1,4 +1,4 @@
-name: TEST-CI
+name: run python script
 
 on:
   workflow_dispatch:
@@ -7,8 +7,13 @@ on:
     - cron: '*/3 * * * *'
 
 jobs:
-  printInputs:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - run: |
-        echo "Run something"
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8  # 可以根据需要指定不同的Python版本
+    - name: Run Python script
+      run: python test/print.py  # 运行 Python 脚本
